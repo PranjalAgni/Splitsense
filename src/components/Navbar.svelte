@@ -1,3 +1,26 @@
+<script lang="ts">
+	let isRefreshClicked = $state(false);
+	let isUpdated = $state(false);
+	async function updateData() {
+		try {
+			const response = await fetch("http://localhost:6363/api/v1/splitwise/refresh");
+			isRefreshClicked = true;
+
+			if (response.ok) {
+				isUpdated = true;
+			}
+		} catch (error) {
+			isUpdated = false;
+			console.log(error);
+		}
+
+		setTimeout(() => {
+			isRefreshClicked = false;
+			isUpdated = false;
+		}, 5000);
+	}
+</script>
+
 <div class="navbar bg-base-100">
 	<div class="navbar-start">
 		<div class="dropdown">
@@ -21,10 +44,18 @@
 		<a class="btn btn-ghost text-2xl" href="/">Splitsense</a>
 	</div>
 	<div class="navbar-center hidden lg:flex">
+		<button class="btn" onclick={updateData}>Refresh</button>
 		<ul class="menu menu-horizontal px-1">
-			<li><a href="/">Item 1</a></li>
-			<li><a href="/more">Item 1</a></li>
-			<li><a href="/">Item 3</a></li>
+			<li><a href="/details">Details</a></li>
 		</ul>
 	</div>
+</div>
+<div class="flex flex-col justify-center items-center">
+	{#if isRefreshClicked}
+		{#if isUpdated}
+			<h2>Updated ✅</h2>
+		{:else}
+			<h2>Failed ❌</h2>
+		{/if}
+	{/if}
 </div>

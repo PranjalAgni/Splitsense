@@ -6,8 +6,6 @@
 </script>
 
 <main class="mt-10">
-	<h2 class="flex flex-col justify-center items-center">Monthly expenses</h2>
-
 	<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 		{#each Object.entries(data) as [month, cost]}
 			<div class="bg-base-100 shadow-xl">

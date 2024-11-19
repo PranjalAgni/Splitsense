@@ -5,3 +5,5 @@
 ## About
 
 Splitsense is a web application that helps you track your expenses.
+
+Purpose of this app is to help me track shared expenses done on the flats splitwise group

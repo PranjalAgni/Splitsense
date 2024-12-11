@@ -1,10 +1,26 @@
 <script lang="ts">
 	import type { ExpenseDescription } from "$types/Expense";
+	import { onMount } from "svelte";
 	let { data }: { data: ExpenseDescription } = $props();
 
-	const months = Object.keys(data);
+	let expensesData = $state(data.data);
+	const months = $derived(Object.keys(expensesData));
 	let selectedOption: string = $state("Select a month");
 	let isMonthSelected: boolean = $state(false);
+
+	onMount(() => {
+		const refreshHandler = async () => {
+			if (data.refresh) {
+				expensesData = await data.refresh();
+			}
+		};
+
+		window.addEventListener("navbarRefresh", refreshHandler);
+
+		return () => {
+			window.removeEventListener("navbarRefresh", refreshHandler);
+		};
+	});
 
 	function handleChange() {
 		isMonthSelected = true;
@@ -38,7 +54,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each data[selectedOption] as expense, index}
+						{#each expensesData[selectedOption] as expense, index}
 							<tr>
 								<th>{index + 1}</th>
 								<th>{expense.title}</th>

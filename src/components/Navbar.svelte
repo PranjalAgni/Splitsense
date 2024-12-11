@@ -5,6 +5,7 @@
 		try {
 			const response = await fetch("http://localhost:6363/api/v1/splitwise/refresh");
 			isRefreshClicked = true;
+			window.dispatchEvent(new CustomEvent("navbarRefresh"));
 
 			if (response.ok) {
 				isUpdated = true;
@@ -17,7 +18,7 @@
 		setTimeout(() => {
 			isRefreshClicked = false;
 			isUpdated = false;
-		}, 5000);
+		}, 3000);
 	}
 </script>
 

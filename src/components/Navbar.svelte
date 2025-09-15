@@ -48,6 +48,7 @@
 		<button class="btn" onclick={updateData}>Refresh</button>
 		<ul class="menu menu-horizontal px-1">
 			<li><a href="/details">Details</a></li>
+			<li><a href="/chart">Chart</a></li>
 		</ul>
 	</div>
 </div>
